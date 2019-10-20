@@ -2,24 +2,19 @@
 
 This repository is providing a half automated way to manage your local enviornment. Before you do so you would need to enable some confiugration on your local machine.
 
-On a sidenote, hopefully I will automate all the way, without the need to manually execute them.
-
 ## Windows Programs
 
 ```powershell
 PS> Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
 ```
 
-## Windows Subsystem for Liux
+## Windows Subsystem for Linux
 
 ```powershell
-# Enabling this feature, needs a restart afterwards
 PS> Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux
-# Download Ubuntu
+# Restart machine
 PS> Invoke-WebRequest -Uri https://aka.ms/wsl-ubuntu-1804 -OutFile Ubuntu.appx -UseBasicParsing
-# Install Ubuntu
 PS> Add-AppxPackage .\Ubuntu.appx
-# Setup Ubuntu
 PS> ~\AppData\Local\Microsoft\WindowsApps\Ubuntu.exe
 ```
 
@@ -28,7 +23,6 @@ PS> ~\AppData\Local\Microsoft\WindowsApps\Ubuntu.exe
 Install the following packages:
 
 ```bash
-# $> sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 0xB1998361219BD9C9 && sudo apt-add-repository 'deb http://repos.azulsystems.com/ubuntu stable main'
 $> sudo apt-get update $$ sudo apt-get upgrade
 $> sudo apt-get update && \
     sudo apt-get install \
