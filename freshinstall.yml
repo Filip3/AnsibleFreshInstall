@@ -1,0 +1,24 @@
+---
+# This playbook setups a local environment and can be used to maintain a local environment.
+
+- name: Setup Local Env
+  hosts: windows
+  tasks:
+    #  - name: Run remote PowerShell Script
+    #    win_command: powershell.exe -ExecutePolicy ByPass -File c:/temp/powershellscirpt.ps1
+    - name: Install Git
+      win_chocolatey:
+        name: git
+        state: present
+    - name: Install notepadplusplus
+      win_chocolatey:
+        name: notepadplusplus
+        state: present      
+    - name: Install Visual Studio Code
+      win_chocolatey:
+        name: vscode
+        state: present
+    - name: Install Google Chrome
+      win_chocolatey:
+        name: googlechrome
+        state: present
