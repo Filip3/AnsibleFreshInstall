@@ -4,8 +4,6 @@
 - name: Setup Local Env
   hosts: windows
   tasks:
-    #  - name: Run remote PowerShell Script
-    #    win_command: powershell.exe -ExecutePolicy ByPass -File c:/temp/powershellscirpt.ps1
     - name: Install Git
       win_chocolatey:
         name: git
@@ -22,3 +20,15 @@
       win_chocolatey:
         name: googlechrome
         state: present
+    - name: Install IIS (Web-Server and Web-Common-Http)
+      win_optional_feature:
+        name:
+        - IIS-WebServerRole
+        state: present
+    # - name: Install Microsoft Subsystem for Linux
+    #   win_optional_feature:
+    #     name: Microsoft-Windows-Subsystem-Linux
+    #     state: present
+    #   register: wsl_status
+    #  - name: Run remote PowerShell Script
+    #    win_command: powershell.exe -ExecutePolicy ByPass -File c:/temp/powershellscirpt.ps1

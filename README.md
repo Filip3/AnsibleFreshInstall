@@ -62,3 +62,11 @@ options = "metadata"
 ```
 
 I will use this configuration, so later on paths it will point to `/e/folder/on/e/` instead of `/mnt/e/folder/on/e/`. *This is also important when mounting files and folders to an docker container!*
+
+## Running the Ansible Playbook
+
+After setting up WSL and most necessary and convinent step you can run the following command
+
+```bash
+ansible-playbook freshinstall.yml -i inventory.yml
+```
