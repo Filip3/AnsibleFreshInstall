@@ -8,6 +8,22 @@ This repository is providing a half automated way to manage your local enviornme
 PS> Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
 ```
 
+## Install Windows Terminal
+
+There are 2 options to install Windows Terminal:
+
+- From the Windows Store
+  - [Windows Terminal](<https://www.microsoft.com/de-de/p/windows-terminal-preview/9n0dx20hk701?activetab=pivot:overviewtab>)
+- From GitHub
+  - [Windows Terminal](<https://github.com/microsoft/terminal>)
+
+After installing it you can setup a shortcut that would always run you Terminal in Administrator Rights.
+
+- Right click on Desktop and create a new Shortcut
+- In Location input: ```cmd  C:\Windows\system32\cmd.exe /c start /b wt```
+- As Name input: Windows Terminal
+- And as a final step, right click into properties -> Advanced and check the option to "Run as Administrator"
+
 ## Windows Subsystem for Linux
 
 ```powershell
