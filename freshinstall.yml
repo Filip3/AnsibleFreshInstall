@@ -3,10 +3,16 @@
 
 - name: Setup Local Env
   hosts: windows
+  gather_facts: no
+    
   tasks:
     - name: Install Git
       win_chocolatey:
         name: git
+        state: present
+    - name: Install Git Fork
+      win_chocolatey:
+        name: git-fork
         state: present
     - name: Install notepadplusplus
       win_chocolatey:
@@ -25,6 +31,20 @@
         name:
         - IIS-WebServerRole
         state: present
+    - name: Install Spotify
+      win_chocolatey:
+        name: spotify
+        state: present
+    # The following commands can be a bit slow since they do depend on outside resources (that can be slow or big), and need to be downloaded
+    # Uncomment if you wish to install and run or update them
+    # - name: Install PowerShell Core
+    #   raw: iex "& { $(irm https://aka.ms/install-powershell.ps1) } -UseMSI -Quiet"
+    # - name: Install all security, critical, and rollup updates without a scheduled task
+    #   win_updates:
+    #     category_names:
+    #       - SecurityUpdates
+    #       - CriticalUpdates
+    #       - UpdateRollups
     # - name: Install Microsoft Subsystem for Linux
     #   win_optional_feature:
     #     name: Microsoft-Windows-Subsystem-Linux
