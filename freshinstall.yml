@@ -1,11 +1,17 @@
 ---
 # This playbook can be used to setup and maintain a local environment
 
-- name: Setup Local Env
+- name: Setup Local Environment
   hosts: windows
-  gather_facts: no
-    
+  # gather_facts: no
+  
   tasks:
+    - name: Register working directory for windows execution
+      win_command: wsl wslpath -w {{playbook_dir}}
+      register: local_directory
+    - name: GET PATH INFO
+      debug: 
+        msg: echo {{local_directory.stdout_lines[0]}}
     # Uncomment only if you want to install additional apps, such as Spotify
     # - name: Execute Additional Installations
     #   import_tasks: tasks/extra_installations.yml
@@ -40,11 +46,23 @@
         name:
         - IIS-WebServerRole
         state: present
-      
+    - name: Install Vagrant
+      win_chocolatey:
+        name: vagrant
+        state: present
+
     # The following commands can be a bit slow since they do depend on outside resources (that can be slow or big), and need to be downloaded
     # Uncomment if you wish to install and run or update them
     # - name: Install PowerShell Core
     #   raw: iex "& { $(irm https://aka.ms/install-powershell.ps1) } -UseMSI -Quiet"
+    # - name: Install Module on PowerShell Core posh-git
+    #   raw: pwsh.exe -command 'Install-Module posh-git -Scope CurrentUser -Confirm:$False -AcceptLicense -AllowClobber -Force'
+    # - name: Install Module on PowerShell Core oh-my-posh
+    #   raw: pwsh.exe -command 'Install-Module oh-my-posh -Scope CurrentUser -Confirm:$False -AcceptLicense -AllowClobber -Force'
+    # - name: Install Module on PowerShell Core PSReadLine
+    #   raw: pwsh.exe -command 'Install-Module -Name PSReadLine -AllowPrerelease -Scope CurrentUser -SkipPublisherCheck -Confirm:$False -AcceptLicense -AllowClobber -Force'
+    # - name: Create and update the PowerShell Core Profile
+    #   raw: pwsh.exe -File {{local_directory.stdout_lines[0]}}\powershellprofile.ps1
     # - name: Install all security, critical, and rollup updates without a scheduled task
     #   win_updates:
     #     category_names:
