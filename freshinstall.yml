@@ -47,14 +47,11 @@
         name:
         - IIS-WebServerRole
         state: present
-    - name: Install Vagrant
-      win_chocolatey:
-        name: vagrant
-        state: present
-    - name: Install VirtualBox
-      win_chocolatey:
-        name: virtualbox
-        state: present
+    
+
+    # Comment if you don"t wish to setup and or install devops tooling, such as Vagrant, VirtualBox
+    - name: Execute Additional Installations
+      import_tasks: tasks/extra_installations.yml
 
     # Uncomment only if you want to install additional apps, such as Spotify
     # - name: Execute Additional Installations
