@@ -1,4 +1,4 @@
-$contentToAdd = "Import-Module posh-git`nImport-Module oh-my-posh`nSet-Theme Paradox`n"
+$contentToAdd = "Import-Module posh-git`nImport-Module oh-my-posh`nSet-Theme Agnoster`n"
 
 if (!(Test-Path $profile))
 {
