@@ -86,3 +86,14 @@ After setting up WSL and most necessary and convinent step you can run the follo
 ```bash
 ansible-playbook freshinstall.yml -i inventory.yml
 ```
+
+## Enhancing your command line or PS or bash experience with Cascadia Fonts
+
+While we are installing [Font Forge]([<https://fontforge.github.io/en-US/>]) with the ansible playbook, for now we need to manually download [Cascadia Code Font]([<https://github.com/microsoft/cascadia-code>]) and enhance it with glyphs. So we can have to complete font experience on the line.
+
+Since we already have Font Forge, you just need to download [Cascadia Code Font from Releases]([<https://github.com/microsoft/cascadia-code/releases>]).
+After downloading the font, run the following command, where the font (.ttf) has been downloaded, so it can add the glyphs.
+
+```bash
+fontforge -script font-patcher /mtn/c/Users/{Insert Here User}/Downloads/Cascadia.ttf -c
+```
