@@ -51,6 +51,10 @@
       win_chocolatey:
         name: vagrant
         state: present
+    - name: Install VirtualBox
+      win_chocolatey:
+        name: virtualbox
+        state: present
 
     # Uncomment only if you want to install additional apps, such as Spotify
     # - name: Execute Additional Installations
