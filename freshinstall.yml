@@ -12,15 +12,16 @@
     - name: GET PATH INFO
       debug: 
         msg: echo {{local_directory.stdout_lines[0]}}
-    # Uncomment only if you want to install additional apps, such as Spotify
-    # - name: Execute Additional Installations
-    #   import_tasks: tasks/extra_installations.yml
     - name: Install Windows Terminal
       win_chocolatey:
         name: microsoft-windows-terminal
         state: present
       notify:
         - copy_profiles
+    - name: Install FontForge
+      apt: 
+        name: fontforge
+        state: present
     - name: Install Git
       win_chocolatey:
         name: git
@@ -50,6 +51,10 @@
       win_chocolatey:
         name: vagrant
         state: present
+
+    # Uncomment only if you want to install additional apps, such as Spotify
+    # - name: Execute Additional Installations
+    #   import_tasks: tasks/extra_installations.yml
 
     # The following commands can be a bit slow since they do depend on outside resources (that can be slow or big), and need to be downloaded
     # Uncomment if you wish to install and run or update them
