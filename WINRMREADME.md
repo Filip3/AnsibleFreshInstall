@@ -18,3 +18,5 @@ pip3 install pywinrm
 ```
 
 Keep in mind if you don"t have ```pip``` you might need to use ```pip3```.
+
+**Back to the main [README.md](./README.md) file.**
