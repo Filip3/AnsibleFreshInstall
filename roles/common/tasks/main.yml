@@ -15,6 +15,10 @@
   win_chocolatey: 
     name: fontforge
     state: present
+# - name: Get Cascadia Code Font
+#   win_get_url:
+#     url: https://github.com/microsoft/cascadia-code/releases/download/{{ cascadia_font_version }}/cascadia.ttf
+#     dest: "{{ systemdrive_temp }}/cascadia.ttf"
 - name: Install Git
   win_chocolatey:
     name: git

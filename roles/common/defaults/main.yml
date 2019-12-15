@@ -1,0 +1,3 @@
+---
+systemdrive_temp: $env:TEMP
+cascadia_font_version: v1911.21
