@@ -1,0 +1,8 @@
+---
+ # This playbook can be used to setup and maintain a local WSL Linux environment
+    
+- name: Setup Local Linux Environment
+  hosts: linux
+  # gather_facts: no
+  roles:
+    - linuxcommon
