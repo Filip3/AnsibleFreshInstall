@@ -1,0 +1,57 @@
+---
+- name: Register working directory for windows execution
+  win_command: wsl wslpath -w {{playbook_dir}}
+  register: local_directory
+- name: GET PATH INFO
+  debug: 
+    msg: echo {{local_directory.stdout_lines[0]}}
+- name: Install Windows Terminal
+  win_chocolatey:
+    name: microsoft-windows-terminal
+    state: present
+  notify:
+    - copy_profiles
+- name: Install FontForge
+  win_chocolatey: 
+    name: fontforge
+    state: present
+- name: Install Git
+  win_chocolatey:
+    name: git
+    state: present
+- name: Install Git Fork
+  win_chocolatey:
+    name: git-fork
+    state: present
+- name: Install notepadplusplus
+  win_chocolatey:
+    name: notepadplusplus
+    state: present      
+- name: Install Visual Studio Code
+  win_chocolatey:
+    name: vscode
+    state: present
+- name: Install Google Chrome
+  win_chocolatey:
+    name: googlechrome
+    state: present
+- name: Install IIS (Web-Server and Web-Common-Http)
+  win_optional_feature:
+    name:
+    - IIS-WebServerRole
+    state: present
+- name: Install Vagrant
+  win_chocolatey:
+    name: vagrant
+    state: present
+- name: Add ServerManager
+  win_feature:
+    name: ServerManager
+    state: present
+- name: Install Hyper V
+  win_feature:
+    name:
+    - Microsoft-Hyper-V
+    - Microsoft-Hyper-V-Management-PowerShell
+    - Microsoft-Hyper-V-Tools
+    state: present
