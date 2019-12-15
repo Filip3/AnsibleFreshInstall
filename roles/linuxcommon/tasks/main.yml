@@ -1,0 +1,7 @@
+---
+- name: Get Cascadia Code Font
+  get_url:
+    url: https://github.com/microsoft/cascadia-code/releases/download/{{ cascadia_font_version }}/cascadia.ttf
+    dest: "{{ systemdrive_temp }}/cascadia.ttf"
+- name: Install Cascadia Font
+  shell:  fontforge -script font-patcher ./Cascadia.ttf -c
