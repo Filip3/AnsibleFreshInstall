@@ -1,0 +1,14 @@
+---
+- name: Register working directory for windows execution
+  win_command: wsl wslpath -w {{playbook_dir}}
+  register: local_directory
+- name: Install PowerShell Core
+  raw: iex "& { $(irm https://aka.ms/install-powershell.ps1) } -UseMSI -Quiet"
+- name: Install Module on PowerShell Core posh-git
+  raw: pwsh.exe -command 'Install-Module posh-git -Scope CurrentUser -Confirm:$False -AcceptLicense -AllowClobber -Force'
+- name: Install Module on PowerShell Core oh-my-posh
+  raw: pwsh.exe -command 'Install-Module oh-my-posh -Scope CurrentUser -Confirm:$False -AcceptLicense -AllowClobber -Force'
+- name: Install Module on PowerShell Core PSReadLine
+  raw: pwsh.exe -command 'Install-Module -Name PSReadLine -AllowPrerelease -Scope CurrentUser -SkipPublisherCheck -Confirm:$False -AcceptLicense -AllowClobber -Force'
+- name: Create and or update the PowerShell Core Profile
+  raw: pwsh.exe -File {{local_directory.stdout_lines[0]}}\roles\powershellcore\files\powershellprofile.ps1
