@@ -1,86 +1,15 @@
 ---
-# This playbook can be used to setup and maintain a local environment
+# This playbook can be used to setup and maintain a local Windows environment
 
 - name: Setup Local Environment
   hosts: windows
   # gather_facts: no
-  
-  tasks:
-    - name: Register working directory for windows execution
-      win_command: wsl wslpath -w {{playbook_dir}}
-      register: local_directory
-    - name: GET PATH INFO
-      debug: 
-        msg: echo {{local_directory.stdout_lines[0]}}
-    - name: Install Windows Terminal
-      win_chocolatey:
-        name: microsoft-windows-terminal
-        state: present
-      notify:
-        - copy_profiles
-    - name: Install FontForge
-      apt: 
-        name: fontforge
-        state: present
-    - name: Install Git
-      win_chocolatey:
-        name: git
-        state: present
-    - name: Install Git Fork
-      win_chocolatey:
-        name: git-fork
-        state: present
-    - name: Install notepadplusplus
-      win_chocolatey:
-        name: notepadplusplus
-        state: present      
-    - name: Install Visual Studio Code
-      win_chocolatey:
-        name: vscode
-        state: present
-    - name: Install Google Chrome
-      win_chocolatey:
-        name: googlechrome
-        state: present
-    - name: Install IIS (Web-Server and Web-Common-Http)
-      win_optional_feature:
-        name:
-        - IIS-WebServerRole
-        state: present
-    
-
-    # Comment if you don"t wish to setup and or install devops tooling, such as Vagrant, VirtualBox
-    - name: Execute Additional Installations
-      import_tasks: tasks/extra_installations.yml
-
-    # Uncomment only if you want to install additional apps, such as Spotify
-    # - name: Execute Additional Installations
-    #   import_tasks: tasks/extra_installations.yml
-
-    # The following commands can be a bit slow since they do depend on outside resources (that can be slow or big), and need to be downloaded
-    # Uncomment if you wish to install and run or update them
-    # - name: Install PowerShell Core
-    #   raw: iex "& { $(irm https://aka.ms/install-powershell.ps1) } -UseMSI -Quiet"
-    # - name: Install Module on PowerShell Core posh-git
-    #   raw: pwsh.exe -command 'Install-Module posh-git -Scope CurrentUser -Confirm:$False -AcceptLicense -AllowClobber -Force'
-    # - name: Install Module on PowerShell Core oh-my-posh
-    #   raw: pwsh.exe -command 'Install-Module oh-my-posh -Scope CurrentUser -Confirm:$False -AcceptLicense -AllowClobber -Force'
-    # - name: Install Module on PowerShell Core PSReadLine
-    #   raw: pwsh.exe -command 'Install-Module -Name PSReadLine -AllowPrerelease -Scope CurrentUser -SkipPublisherCheck -Confirm:$False -AcceptLicense -AllowClobber -Force'
-    # - name: Create and update the PowerShell Core Profile
-    #   raw: pwsh.exe -File {{local_directory.stdout_lines[0]}}\powershellprofile.ps1
-    # - name: Install all security, critical, and rollup updates without a scheduled task
-    #   win_updates:
-    #     category_names:
-    #       - SecurityUpdates
-    #       - CriticalUpdates
-    #       - UpdateRollups
-    # - name: Install Microsoft Subsystem for Linux
-    #   win_optional_feature:
-    #     name: Microsoft-Windows-Subsystem-Linux
-    #     state: present
-    #   register: wsl_status
-    #  - name: Run remote PowerShell Script
-    #    win_command: powershell.exe -ExecutePolicy ByPass -File c:/temp/powershellscirpt.ps1
-  handlers:
-  - import_tasks: handlers/main.yml
+  vars_prompt:
+    - name: "ansible_password"
+      prompt: "Enter Local Windows Administrator Password"
+      private: yes
+  roles:
+    # - common    
+    - powershellcore
+    # - windows
+    # - extra
