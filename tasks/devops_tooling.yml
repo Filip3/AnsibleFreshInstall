@@ -1,9 +1,0 @@
----
-- name: Install Vagrant
-  win_chocolatey:
-    name: vagrant
-    state: present
-- name: Install VirtualBox
-  win_chocolatey:
-    name: virtualbox
-    state: present

@@ -1,5 +1,0 @@
----
-- name: Install Spotify
-  win_chocolatey:
-    name: spotify
-    state: present
