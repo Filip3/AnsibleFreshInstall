@@ -1,7 +1,28 @@
 ---
-- name: Get Cascadia Code Font
+- name: Get Fontforge Repository
+  shell: add-apt-repository ppa:fontforge/fontforge -y -u
+- name: Install apt package FontForge
+  apt:
+    state: latest
+    pkg: fontforge
+  tags:
+    - fontforge
+    - software-installation
+    - using-apt
+- name: Install apt package python-fontforge
+  apt:
+    state: latest
+    pkg: python-fontforge
+  tags:
+    - python-fontforge
+    - software-installation
+    - using-apt
+- name: Install Font Patcher
   get_url:
-    url: https://github.com/microsoft/cascadia-code/releases/download/{{ cascadia_font_version }}/cascadia.ttf
-    dest: "{{ systemdrive_temp }}/cascadia.ttf"
-- name: Install Cascadia Font
-  shell:  fontforge -script font-patcher ./Cascadia.ttf -c
+    url: https://raw.githubusercontent.com/ryanoasis/nerd-fonts/master/font-patcher
+    dest: "{{ systemdrive_temp }}font-patcher"
+- name: Remove powerlevel10k Theme
+  shell: rm -r $ZSH_CUSTOM/themes/powerlevel10k
+- name: Install powerlevel10k on Oh My Zsh
+  shell: git clone --bare --depth=1 https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerlevel10k
+  become: yes
