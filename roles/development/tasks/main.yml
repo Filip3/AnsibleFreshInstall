@@ -1,0 +1,11 @@
+---
+- name: Install Node JS
+  win_chocolatey:
+    name: nodejs
+    state: present
+- name: Install Angular CLI with npm
+  raw: npm install @angular/cli --save-dev
+- name: Install dependency @angular-devkit/build-angular with npm
+  raw: npm install --save-dev @angular-devkit/build-angular
+- name: Install Angular CLI compiler with npm
+  raw: npm install -g @angular/compiler-cli

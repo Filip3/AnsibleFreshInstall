@@ -9,7 +9,8 @@
       prompt: "Enter Local Windows Administrator Password"
       private: yes
   roles:
-    - common    
-    - powershellcore
+    # - common    
+    # - powershellcore
     - windows
-    - extra
+    # - extra
+    - development

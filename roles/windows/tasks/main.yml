@@ -1,10 +1,10 @@
 ---
-- name: Install all security, critical, and rollup updates without a scheduled task
-  win_updates:
-    category_names:
-        - SecurityUpdates
-        - CriticalUpdates
-        - UpdateRollups
+# - name: Install all security, critical, and rollup updates without a scheduled task
+#   win_updates:
+#     category_names:
+#         - SecurityUpdates
+#         - CriticalUpdates
+#         - UpdateRollups
         
 # - name: Install Microsoft Subsystem for Linux
 #   win_optional_feature:
@@ -13,3 +13,8 @@
 #   register: wsl_status
 # - name: Run remote PowerShell Script
 #   win_command: powershell.exe -ExecutePolicy ByPass -File c:/temp/powershellscirpt.ps1
+
+- name: Install .NET SDK latest version
+  win_chocolatey:
+    name: dotnetcore-sdk
+    state: latest

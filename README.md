@@ -113,7 +113,7 @@ ansible-playbook freshinstall.yml -i inventory.yml
 To be able to execute the Linux playbook you would need to check your linux hosts file. If it contains the following:
 
 ``` bash
-127.0.0.1   wsl.local
+127.0.1.1   wsl.local
 127.0.0.1   windows.local
 ```
 

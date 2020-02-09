@@ -22,11 +22,11 @@
 - name: Install Git
   win_chocolatey:
     name: git
-    state: present
+    state: latest
 - name: Install Git Fork
   win_chocolatey:
     name: git-fork
-    state: present
+    state: latest
 - name: Install notepadplusplus
   win_chocolatey:
     name: notepadplusplus
@@ -34,11 +34,15 @@
 - name: Install Visual Studio Code
   win_chocolatey:
     name: vscode
-    state: present
+    state: latest
 - name: Install Google Chrome
   win_chocolatey:
     name: googlechrome
-    state: present
+    state: latest
+- name: Install Microsoft Chromium Ednge
+  win_chocolatey:
+    name: microsoft-edge
+    state: latest
 - name: Install IIS (Web-Server and Web-Common-Http)
   win_optional_feature:
     name:
