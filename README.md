@@ -1,11 +1,17 @@
 # Fresh Install
 
-This repository is providing a half automated way to manage your local Windows environment. Before you do you would need to enable some configuration on your local machine.
+This repository is providing a half automated way to manage your local Windows/WSL environment. Before you do you would need to enable some configuration on your local machine.
+
+*Keep in mind that most steps will require elevated rights.*
 
 ## Windows Programs
 
 ```powershell
 PS> Set-ExecutionPolicy Bypass -Scope Process -Force
+```
+We need to also enable the Virtual Machine Platform optional component on Windows. 
+```powershell
+PS> dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
 ```
 
 ## Install Windows Terminal
@@ -32,25 +38,30 @@ This feature can be installed from the Ansible roles. But since this is a local 
 ```powershell
 PS> Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux
 # Restart machine
+# A distro version can be chosen from the list provided my msft.
 PS> Invoke-WebRequest -Uri https://aka.ms/wsl-ubuntu-1804 -OutFile Ubuntu.appx -UseBasicParsing
 PS> Add-AppxPackage .\Ubuntu.appx
 PS> ~\AppData\Local\Microsoft\WindowsApps\Ubuntu.exe
 ```
+After installing the distro version you can configure WSL 2 as a default version.
 
-### Install Ansbile and some additional packages within WSL
+*At the moment WSL 2 doesn't provide a easy way to communicate with the windows host, and Ansible cannot be executed without temporary workarounds.*
+```bash
+wsl --set-default-version 2
+```
 
-Install the following packages:
+### Install Ansible and add additional packages within WSL
+
+Install packages and update the distro with the following commands:
 
 ```bash
 $> sudo apt-get update
 $> sudo apt-get upgrade
-$> sudo apt-get install
-$> sudo apt-get socat
-$> sudo apt-get git
-$> sudo apt-get zulu-11
-$> sudo apt-get software-properties-common
+$> sudo apt-get install socat
+$> sudo apt-get install git
+$> sudo apt-get install zulu-11
+$> sudo apt-get install software-properties-common
 $> sudo apt-add-repository -y --update ppa:ansible/ansible
-$> sudo apt install -y
 $> sudo apt install ansible
 ```
 
@@ -73,7 +84,7 @@ user_name ALL=(ALL) NOPASSWD: ALL
 
 The actual root for all disk drives points to `/mnt/DRIVE_CHAR/` e.g. `/mnt/c/`. This can be altered since Win 1903 by adding a `wsl.conf` to the `/etc/` folder with the following content:
 
-To edit the .conf file, run the following command in your wsl.
+To edit the .conf file, run the following command in your WSL.
 
 ```bash
 $> sudo vim /etc/wsl.conf
@@ -87,7 +98,7 @@ root = /
 options = "metadata"
 ```
 
-This configuration would help so later in the paths it will point to `/e/folder/on/e/` instead of `/mnt/e/folder/on/e/`. *This is also important when mounting files and folders to an docker container!*
+This configuration would help later in the paths that it will point to `/e/folder/on/e/` instead of `/mnt/e/folder/on/e/`. *This is also important when mounting files and folders to an docker container!*
 
 ## Ansible
 
@@ -105,12 +116,12 @@ For our installations we will run two playbooks against both, WSL and Windows ho
 After setting up WSL and Ansible, you can run the following command to execute the Ansible playbook.
 
 ```bash
-ansible-playbook freshinstall.yml -i inventory.yml
+ansible-playbook freshinstall.yml -i hosts/inventory.yml
 ```
 
 #### Ansible WSL Linux Playbook
 
-To be able to execute the Linux playbook you would need to check your linux hosts file. If it contains the following:
+To be able to execute the Linux playbook you would need to check your Linux hosts file. If it contains the following:
 
 ``` bash
 127.0.1.1   wsl.local

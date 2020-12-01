@@ -1,6 +1,6 @@
 ---
 - name: Get Fontforge Repository
-  shell: add-apt-repository ppa:fontforge/fontforge -y -u
+  shell: apt-get install -y fontforge
 - name: Install apt package FontForge
   apt:
     state: latest
@@ -9,10 +9,10 @@
     - fontforge
     - software-installation
     - using-apt
-- name: Install apt package python-fontforge
+- name: Install apt package python3-fontforge
   apt:
     state: latest
-    pkg: python-fontforge
+    pkg: python3-fontforge
   tags:
     - python-fontforge
     - software-installation
@@ -20,9 +20,17 @@
 - name: Install Font Patcher
   get_url:
     url: https://raw.githubusercontent.com/ryanoasis/nerd-fonts/master/font-patcher
-    dest: "{{ systemdrive_temp }}font-patcher"
-- name: Remove powerlevel10k Theme
-  shell: rm -r $ZSH_CUSTOM/themes/powerlevel10k
+    dest: '{{ systemdrive_temp }}/font-patcher'
+- name: Install apt package ZSH
+  apt:
+    state: latest
+    pkg: zsh
+# - name: Remove powerlevel10k Theme
+#   shell: rm -r $ZSH_CUSTOM/themes/powerlevel10k
 - name: Install powerlevel10k on Oh My Zsh
-  shell: git clone --bare --depth=1 https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerlevel10k
-  become: yes
+  shell: git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+  become: yes  
+- name: Install apt package Powerline Fonts
+  apt:
+    state: latest
+    pkg: fonts-powerline

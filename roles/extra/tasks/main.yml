@@ -2,4 +2,5 @@
 - name: Install Spotify
   win_chocolatey:
     name: spotify
-    state: present
+    state: latest
+    install_args: -y

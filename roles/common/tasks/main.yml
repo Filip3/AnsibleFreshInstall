@@ -4,7 +4,7 @@
   register: local_directory
 - name: GET PATH INFO
   debug: 
-    msg: echo {{local_directory.stdout_lines[0]}}
+   msg: echo {{local_directory.stdout_lines[0]}}
 - name: Install Windows Terminal
   win_chocolatey:
     name: microsoft-windows-terminal
@@ -15,18 +15,18 @@
   win_chocolatey: 
     name: fontforge
     state: present
-# - name: Get Cascadia Code Font
-#   win_get_url:
-#     url: https://github.com/microsoft/cascadia-code/releases/download/{{ cascadia_font_version }}/cascadia.ttf
-#     dest: "{{ systemdrive_temp }}/cascadia.ttf"
+- name: Get Cascadia Code Font
+  win_get_url:
+    url: https://github.com/microsoft/cascadia-code/releases/download/{{ cascadia_font_version }}/cascadia.ttf
+    dest: '{{ local_directory.stdout_lines[0] }}/cascadia.ttf'
 - name: Install Git
   win_chocolatey:
     name: git
     state: latest
-- name: Install Git Fork
-  win_chocolatey:
-    name: git-fork
-    state: latest
+#- name: Install Git Fork
+#  win_chocolatey:
+#    name: git-fork
+#    state: latest
 - name: Install notepadplusplus
   win_chocolatey:
     name: notepadplusplus
@@ -39,27 +39,26 @@
   win_chocolatey:
     name: googlechrome
     state: latest
-- name: Install Microsoft Chromium Ednge
+- name: Install Microsoft Chromium Edge
   win_chocolatey:
     name: microsoft-edge
     state: latest
-- name: Install IIS (Web-Server and Web-Common-Http)
-  win_optional_feature:
-    name:
-    - IIS-WebServerRole
-    state: present
-- name: Install Vagrant
-  win_chocolatey:
-    name: vagrant
-    state: present
-- name: Add ServerManager
-  win_feature:
-    name: ServerManager
-    state: present
+#- name: Install IIS (Web-Server and Web-Common-Http)
+#  win_optional_feature:
+#    name:
+#    - IIS-WebServerRole
+#    state: present
+#- name: Install Vagrant
+#  win_chocolatey:
+#    name: vagrant
+#    state: present
+#- name: Add ServerManager
+#  win_feature:
+#    name: ServerManager
+#    state: present
 - name: Install Hyper V
-  win_feature:
-    name:
-    - Microsoft-Hyper-V
-    - Microsoft-Hyper-V-Management-PowerShell
-    - Microsoft-Hyper-V-Tools
-    state: present
+  raw: Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All
+- name: Install OpenVPN
+  win_chocolatey: 
+    name: openvpn
+    state: latest
