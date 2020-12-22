@@ -16,12 +16,14 @@ PS> dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /n
 
 ## Install Windows Terminal
 
-There are 2 options to install Windows Terminal:
+There are 3 options to install Windows Terminal:
 
 - From the Windows Store
   - [Windows Terminal](<https://www.microsoft.com/de-de/p/windows-terminal-preview/9n0dx20hk701?activetab=pivot:overviewtab>)
 - From GitHub
   - [Windows Terminal](<https://github.com/microsoft/terminal>)
+- Using Chocolatey
+  - [Windows Terminal](https://chocolatey.org/packages/microsoft-windows-terminal/)
 
 Or you can leave it to the task included in the common role, which would install Windows Terminal for you.
 

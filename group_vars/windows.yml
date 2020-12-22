@@ -1,5 +1,5 @@
 ---
-ansible_user: filip
+ansible_user: 
 ansible_password: 
 ansible_connection: winrm
 ansible_port: 5986
